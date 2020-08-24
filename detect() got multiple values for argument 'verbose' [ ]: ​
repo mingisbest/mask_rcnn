@@ -1,0 +1,8 @@
+ 问题detect() got multiple values for argument 'verbose'
+
+答案;其实是model.detect()多了参数
+如results = model.detect(detect_filename, [image], verbose=1)
+改为results = model.detect([image], verbose=1)
+
+
+
