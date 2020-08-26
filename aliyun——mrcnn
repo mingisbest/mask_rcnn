@@ -2,6 +2,11 @@
 每做一次测试，都要新建一个notebook_pytorch
 
 
+注意###做新图片测试时，可以把cv2.imshow("Instance Segmentation Result", result_image)
+        cv2.waitKey(3)及以下全部注释掉
+
+
+
 1.修改了shapes中关于ym文件
 修改为
 yaml_path = dataset_root_path + "/json_txt/" + filestr[0:-4] + ".txt"   在阿里云
