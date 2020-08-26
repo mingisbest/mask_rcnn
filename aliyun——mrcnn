@@ -1,0 +1,41 @@
+特别提醒
+每做一次测试，都要新建一个notebook_pytorch
+
+
+1.修改了shapes中关于ym文件
+修改为
+yaml_path = dataset_root_path + "/json_txt/" + filestr[0:-4] + ".txt"   在阿里云
+原文件为
+yaml_path = mask_path.split("\\")[0] + "/json_txt/" + filestr[0:-4] + ".txt"在shape副本文件中
+
+2.training时修改了epoch为5为测试能否训练
+
+
+3.修改了visilize文件
+将源文件改为
+
+
+skimage.io.imsave(os.path.join(ROOT_DIR,"02_ResultCheck/PredictionsImages") + file[0:-4] + ".png", image)
+        plt.savefig(os.path.join(ROOT_DIR,"02_ResultCheck/PredictionsImages") + file[0:-4] + "_predict.png")
+        cv2.imwrite(os.path.join(ROOT_DIR,"02_ResultCheck/PredictionsImages") + file[0:-4] + "_mask.png", mask_label)
+
+        img1 = cv2.cvtColor(image, cv2.COLOR_RGB2RGBA)
+        img2 = cv2.cvtColor(mask_label, cv2.COLOR_RGB2RGBA)
+        img3 = cv2.cvtColor(cv2.imread(os.path.join(ROOT_DIR,"02_ResultCheck/PredictionsImages") + file[0:-4] + "_predict.png", cv2.IMREAD_COLOR), cv2.COLOR
+
+
+问题：all the input array dimensions except for the concatenation axis must match exactly
+是由于result_image, mask_label = visualize.display_instances(file, detect_filename, image, r['rois'], r['masks'], r['class_ids'], 
+                                            dataset_train.class_names, r['scores']) 不在同一行
+将其调整为一行后，错误消除
+或者新开一个nootebook
+
+
+3.注释掉# Test dataset
+#testset_val = ShapesDataset()
+#testset_val.load_shapes(test_num, test_img_dir, test_mask_dir, test_imglist, test_data_path)
+#testset_val.prepare()
+进行测试结果
+
+
+4.
