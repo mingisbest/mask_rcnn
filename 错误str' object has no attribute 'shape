@@ -1,0 +1,29 @@
+ttributeError                            Traceback (most recent call last)
+<ipython-input-20-9f14dabd7f32> in <module>
+    676         r = results[0]
+    677         result_image, mask_label = visualize.display_instances(file, detect_filename, image, r['rois'], r['masks'], r['class_ids'], 
+--> 678                                             dataset_train.class_names, r['scores'])
+    679         cal_L_A_4PIA(detect_filename.split('/')[-1:][0], mask_label)
+    680         result_image = cv2.resize(result_image, (int((result_image.shape[1]) / 3), int((result_image.shape[0]) / 3)), 0, 0, cv2.INTER_CUBIC)
+
+/data/nas/workspace/jupyter/Demo/Models/Mask_RCNN/mrcnn/visualize.py in display_instances(image, boxes, masks, class_ids, class_names, scores, title, figsize, ax, show_mask, show_bbox, colors, captions)
+     99     """
+    100     # Number of instances
+--> 101     N = boxes.shape[0]
+    102     if not N:
+    103         print("\n*** No instances to display *** \n")
+
+AttributeError: 'str' object has no attribute 'shape'
+
+
+
+[ ]:解决办法，将678行的code整合到上一行，形成完整的一句，不要有折叠
+
+
+​
+
+
+
+
+
+
