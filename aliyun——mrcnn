@@ -33,7 +33,7 @@ skimage.io.imsave(os.path.join(ROOT_DIR,"02_ResultCheck/PredictionsImages") + fi
 是由于result_image, mask_label = visualize.display_instances(file, detect_filename, image, r['rois'], r['masks'], r['class_ids'], 
                                             dataset_train.class_names, r['scores']) 不在同一行
 将其调整为一行后，错误消除
-或者新开一个nootebook
+或者新开一个nootebook(特别注意)
 
 
 3.注释掉# Test dataset
