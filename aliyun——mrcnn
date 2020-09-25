@@ -43,4 +43,24 @@ skimage.io.imsave(os.path.join(ROOT_DIR,"02_ResultCheck/PredictionsImages") + fi
 进行测试结果
 
 
-4.
+4.   for file in os.listdir(test_img_dir):
+        detect_filename = test_img_dir + "/" + file
+        image = skimage.io.imread(detect_filename)
+        # image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+        results = model.detect(detect_filename, [image], verbose=1)
+        r = results[0]
+        result_image, mask_label = visualize.display_instances(file, detect_filename, image, r['rois'], r['masks'], r['class_ids'], dataset_train.class_names, r['scores'])
+        cal_L_A_4PIA(detect_filename.split('/')[-1:][0], mask_label)
+        result_image = cv2.resize(result_image, (int((result_image.shape[1]) / 3), int((result_image.shape[0]) / 3)), 0, 0, cv2.INTER_CUBIC)
+        print(7)        
+        #cv2.imshow("Instance Segmentation Result", result_image)
+        #cv2.waitKey(3)
+        image, image_meta, gt_class_id, gt_bbox, gt_mask = modellib.load_image_gt(testset_val, inference_config, image_id, use_mini_mask=False)
+        image_id = image_id + 1
+        AP, precisions, recalls, overlaps = utils.compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'])
+        print(10)
+        APs.append(AP)
+        Precision.append(precisions)
+        Recall.append(recalls)
+        
+        该段代码无法实现循环，原因在于CV2的两行程序，将这两行程序注释掉，就可以了
